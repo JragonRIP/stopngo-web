@@ -1,26 +1,118 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sn-base: #3f3f3f;
+  --sn-gold: #fbb03b;
+  --sn-red: #ed1c24;
+  --sn-silver: #bcbec0;
+  --sn-ink: #0a0a0a;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-sn-base: var(--sn-base);
+  --color-sn-gold: var(--sn-gold);
+  --color-sn-red: var(--sn-red);
+  --color-sn-silver: var(--sn-silver);
+  --color-sn-ink: var(--sn-ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Subtle “lights coming on” in the hero: soft blooms, staggered, low contrast */
+@keyframes sn-hero-light-a {
+  0%,
+  100% {
+    opacity: 0.045;
+    transform: scale(1) translate(0, 0);
+  }
+  35% {
+    opacity: 0.11;
+    transform: scale(1.06) translate(1.5%, -1%);
+  }
+  70% {
+    opacity: 0.065;
+    transform: scale(0.98) translate(-1%, 0.5%);
+  }
+}
+
+@keyframes sn-hero-light-b {
+  0%,
+  100% {
+    opacity: 0.04;
+    transform: scale(1) translate(0, 0);
+  }
+  40% {
+    opacity: 0.095;
+    transform: scale(1.05) translate(-2%, 1.5%);
+  }
+  80% {
+    opacity: 0.055;
+    transform: scale(1.02) translate(1%, -0.5%);
+  }
+}
+
+@keyframes sn-hero-light-c {
+  0%,
+  100% {
+    opacity: 0.035;
+    transform: scale(1) translate(0, 0);
+  }
+  30% {
+    opacity: 0.09;
+    transform: scale(1.04) translate(0.5%, 1%);
+  }
+  60% {
+    opacity: 0.05;
+    transform: scale(0.99) translate(-1.5%, -1%);
+  }
+}
+
+@keyframes sn-hero-light-d {
+  0%,
+  100% {
+    opacity: 0.03;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.08;
+    transform: scale(1.07);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sn-hero-light-1 {
+    animation: sn-hero-light-a 13s ease-in-out infinite;
+  }
+  .sn-hero-light-2 {
+    animation: sn-hero-light-b 17s ease-in-out infinite;
+    animation-delay: -4s;
+  }
+  .sn-hero-light-3 {
+    animation: sn-hero-light-c 15s ease-in-out infinite;
+    animation-delay: -8s;
+  }
+  .sn-hero-light-4 {
+    animation: sn-hero-light-d 21s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--sn-base);
+  color: #ffffff;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Comfortable tap targets on small screens */
+@media (max-width: 767px) {
+  .sn-touch-target {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
 }
