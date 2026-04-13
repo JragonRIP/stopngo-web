@@ -13,20 +13,21 @@ export default function CartStickyShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const items = useCartStore((s) => s.items);
   const count = getCartItemCount(items);
-  const showBar = count > 0 && pathname !== "/cart";
+  const hideSticky = pathname === "/cart" || pathname === "/checkout";
+  const showBar = count > 0 && !hideSticky;
 
   return (
-    <div className={showBar ? "pb-[5.5rem] sm:pb-24" : undefined}>
+    <div className={showBar ? "pb-20 sm:pb-24" : undefined}>
       {children}
       {showBar ? (
         <div
-          className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-sn-base/95 px-4 py-3 backdrop-blur-md pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-12px_32px_rgba(0,0,0,0.4)]"
+          className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2"
           role="region"
           aria-label="Open cart"
         >
           <Link
             href="/cart"
-            className="mx-auto flex h-12 w-full max-w-lg items-center justify-center rounded-md bg-sn-gold text-sm font-semibold text-sn-ink shadow-md transition hover:bg-[#ffc85c] active:scale-[0.99] motion-reduce:active:scale-100"
+            className="pointer-events-auto flex h-12 w-full max-w-lg items-center justify-center rounded-md bg-sn-gold text-sm font-semibold text-sn-ink shadow-lg shadow-black/30 transition hover:bg-[#ffc85c] active:scale-[0.99] motion-reduce:active:scale-100"
           >
             View Your Order
           </Link>
