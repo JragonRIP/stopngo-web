@@ -28,10 +28,11 @@ export default function MenuPreview() {
               Coffee, energy, and real food, all day.
             </h1>
             <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
-              Full in house menu below. Use{" "}
-              <span className="text-white/85">Add to cart</span> on any item,
-              then open your cart to check out. Same cart as the live order
-              page. Prices and items can change, ask at the window to confirm.
+              Full in-house menu below for browsing. To customize drinks and
+              meals and pay for pickup, use{" "}
+              <span className="text-white/85">Order Online</span>—that menu is
+              powered by Sanity and connects to checkout. Prices and items can
+              change; ask at the window to confirm.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/60">
@@ -40,7 +41,7 @@ export default function MenuPreview() {
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/60">
                 <span className="h-1.5 w-1.5 rounded-full bg-sn-red/60" aria-hidden />
-                Order online to customize
+                Browse here · order on Order Online
               </span>
             </div>
           </div>

@@ -7,11 +7,6 @@ import {
   type TextMenuSection,
 } from "@/lib/menu-data";
 import FadeInView from "./FadeInView";
-import {
-  MenuDualRowCart,
-  MenuSingleRowCart,
-  MenuSizedRowCart,
-} from "./menu/MenuTextAddToCart";
 import { MenuSectionIcon, sectionAccentClass } from "./menu/MenuSectionVisuals";
 
 function SizedRows({
@@ -64,11 +59,6 @@ function SizedRows({
                   {formatPrice(row.large)}
                 </span>
               </div>
-              <MenuSizedRowCart
-                sectionId={sectionId}
-                row={row}
-                layout="desktop"
-              />
             </li>
           ))}
         </ul>
@@ -119,11 +109,6 @@ function SizedRows({
                 {n}
               </p>
             ))}
-            <MenuSizedRowCart
-              sectionId={sectionId}
-              row={row}
-              layout="mobile"
-            />
           </li>
         ))}
       </ul>
@@ -167,7 +152,6 @@ function SingleRows({
             <p className="self-start rounded-lg border border-sn-gold/20 bg-sn-gold/10 px-3 py-1.5 text-lg font-semibold tabular-nums text-sn-gold sm:self-end sm:py-1 sm:text-base">
               {formatPrice(row.price)}
             </p>
-            <MenuSingleRowCart sectionId={sectionId} row={row} />
           </div>
         </li>
       ))}
@@ -213,7 +197,6 @@ function DualRows({
                   </span>
                 </div>
               </div>
-              <MenuDualRowCart sectionId={sectionId} row={row} />
             </div>
           </div>
         </li>

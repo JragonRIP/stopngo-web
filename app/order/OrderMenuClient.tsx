@@ -36,7 +36,7 @@ export default function OrderMenuClient({ items }: Props) {
   return (
     <>
       <Header />
-      <main className="flex-1 pb-16 pt-6">
+      <main className="flex-1 pb-8 pt-6">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <h1 className="text-3xl font-semibold text-white sm:text-4xl">
             Order online

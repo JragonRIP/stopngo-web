@@ -49,7 +49,7 @@ export default async function OrderPage() {
           <p className="mt-3 text-white/65">
             Order Online reads from Sanity (documents of type{" "}
             <strong className="font-medium text-white/80">Menu Item</strong>
-            ), while the public Menu page still uses the static list in{" "}
+            ). The public Menu page is a separate static board in{" "}
             <code className="rounded bg-white/10 px-1.5 py-0.5 text-sm">
               lib/menu-data.ts
             </code>
