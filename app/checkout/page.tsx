@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
 import { useCartStore, type CartItem } from "@/lib/cart";
+import { writePendingCheckout } from "@/lib/order-confirmation-storage";
 import { buildPickupTimeOptions } from "@/lib/pickup-slots";
 
 export default function CheckoutPage() {
@@ -53,6 +54,20 @@ export default function CheckoutPage() {
         payload
       );
       if (data.url) {
+        writePendingCheckout({
+          cart: items.map((i: CartItem) => ({
+            name: i.name,
+            quantity: i.quantity,
+            basePrice: i.basePrice,
+            selectedSize: i.selectedSize,
+            selectedFlavor: i.selectedFlavor,
+            selectedModifiers: i.selectedModifiers,
+            calculatedItemTotal: i.calculatedItemTotal,
+          })),
+          pickupTime,
+          customerName: name.trim(),
+          customerEmail: email.trim(),
+        });
         window.location.href = data.url;
         return;
       }

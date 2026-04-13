@@ -23,7 +23,13 @@ export default function CartPage() {
         <h1 className="text-3xl font-semibold text-white">Your cart</h1>
         <p className="mt-2 text-sm text-white/60">
           Review items before checkout. Modifiers are listed under each
-          product.
+          product.{" "}
+          <Link
+            href="/your-order"
+            className="text-sn-gold underline-offset-2 hover:underline"
+          >
+            Your last order
+          </Link>
         </p>
 
         {items.length === 0 ? (

@@ -53,6 +53,12 @@ export default function Header() {
 
         <div className="ml-auto flex items-center gap-2">
           <Link
+            href="/your-order"
+            className="hidden rounded-full border border-white/15 px-3 py-2 text-xs font-semibold uppercase tracking-wider text-white/90 transition hover:border-sn-gold/50 hover:text-sn-gold sm:inline-flex sm:items-center sm:justify-center"
+          >
+            Your order
+          </Link>
+          <Link
             href="/cart"
             className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:border-sn-gold/50 hover:text-sn-gold"
             aria-label={`Shopping cart${count ? `, ${count} items` : ""}`}
@@ -93,6 +99,12 @@ export default function Header() {
             {label}
           </Link>
         ))}
+        <Link
+          href="/your-order"
+          className="flex min-h-11 min-w-[4.25rem] items-center justify-center rounded-lg px-3 py-2 text-center text-xs font-medium text-white/85 transition active:bg-white/10"
+        >
+          Your order
+        </Link>
       </nav>
     </header>
   );

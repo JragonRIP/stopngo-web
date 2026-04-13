@@ -6,32 +6,19 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/Header";
+import OrderReceiptLines from "@/app/components/OrderReceiptLines";
 import { useCartStore } from "@/lib/cart";
+import {
+  coerceOrderNumber,
+  readStoredOrderConfirmation,
+  readStoredOrderNumber,
+  saveOrderConfirmationAfterCheckout,
+  type StoredOrderLine,
+} from "@/lib/order-confirmation-storage";
 import {
   extractSquareReturnIds,
   mergeSquareSuccessUrlParams,
 } from "@/lib/square-success-redirect";
-
-const LS_KEY = "stopngo_order_confirmation";
-
-type StoredConfirmation = {
-  orderNumber?: number | string;
-  /** Fingerprint of Square return ids used for /api/orders (same URL = same checkout) */
-  lookupKey?: string | null;
-  updatedAt?: string;
-};
-
-function coerceOrderNumber(
-  raw: number | string | undefined
-): number | null {
-  const n =
-    typeof raw === "number"
-      ? raw
-      : typeof raw === "string"
-        ? Number(raw)
-        : NaN;
-  return Number.isInteger(n) && n >= 1 ? n : null;
-}
 
 function fingerprintReturnIds(ids: {
   orderId: string | null;
@@ -42,35 +29,6 @@ function fingerprintReturnIds(ids: {
     .filter((s): s is string => Boolean(s && s.trim()))
     .sort()
     .join("\0");
-}
-
-function readStoredConfirmation(): StoredConfirmation | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw) as StoredConfirmation;
-  } catch {
-    return null;
-  }
-}
-
-function readStoredOrderNumber(): number | null {
-  const v = readStoredConfirmation();
-  if (!v) return null;
-  return coerceOrderNumber(v.orderNumber);
-}
-
-function writeStoredOrderNumber(
-  orderNumber: number,
-  lookupKey: string | null
-) {
-  const payload: StoredConfirmation = {
-    orderNumber,
-    lookupKey: lookupKey || null,
-    updatedAt: new Date().toISOString(),
-  };
-  localStorage.setItem(LS_KEY, JSON.stringify(payload));
 }
 
 function parseOrderNumberFromResponse(data: unknown): number | null {
@@ -88,6 +46,9 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const clearCart = useCartStore((s) => s.clearCart);
   const [orderNumber, setOrderNumber] = useState<number | null>(null);
+  const [receiptLines, setReceiptLines] = useState<StoredOrderLine[]>([]);
+  const [receiptTotal, setReceiptTotal] = useState<number | null>(null);
+  const [pickupTimeLabel, setPickupTimeLabel] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
   const [returnIds, setReturnIds] = useState<{
     orderId: string | null;
@@ -130,22 +91,33 @@ function SuccessContent() {
     const fp = fingerprintReturnIds(next);
 
     if (hasReturn) {
-      const stored = readStoredConfirmation();
+      const stored = readStoredOrderConfirmation();
       const storedN = stored ? coerceOrderNumber(stored.orderNumber) : null;
       if (
         storedN != null &&
         stored?.lookupKey &&
         stored.lookupKey === fp
       ) {
-        // Same Square return URL as last save (e.g. browser back) — keep showing that pickup #
         setOrderNumber(storedN);
+        setReceiptLines(stored.lines ?? []);
+        setReceiptTotal(
+          typeof stored.orderTotal === "number" ? stored.orderTotal : null
+        );
+        setPickupTimeLabel(stored.pickupTime ?? null);
       } else {
-        // New return: don't flash an older checkout's number while this one loads
         setOrderNumber(null);
+        setReceiptLines([]);
+        setReceiptTotal(null);
+        setPickupTimeLabel(null);
       }
     } else {
-      // Plain /success visit: restore last confirmed number from this device
       setOrderNumber(readStoredOrderNumber());
+      const stored = readStoredOrderConfirmation();
+      setReceiptLines(stored?.lines ?? []);
+      setReceiptTotal(
+        typeof stored?.orderTotal === "number" ? stored.orderTotal : null
+      );
+      setPickupTimeLabel(stored?.pickupTime ?? null);
     }
   }, [searchKey]);
 
@@ -176,8 +148,17 @@ function SuccessContent() {
           const num = parseOrderNumberFromResponse(data);
           if (num != null) {
             if (!cancelled) {
+              saveOrderConfirmationAfterCheckout({
+                orderNumber: num,
+                lookupKey,
+              });
+              const snap = readStoredOrderConfirmation();
               setOrderNumber(num);
-              writeStoredOrderNumber(num, lookupKey);
+              setReceiptLines(snap?.lines ?? []);
+              setReceiptTotal(
+                typeof snap?.orderTotal === "number" ? snap.orderTotal : null
+              );
+              setPickupTimeLabel(snap?.pickupTime ?? null);
               clearCart();
             }
             break;
@@ -223,6 +204,11 @@ function SuccessContent() {
             <p className="mt-3 text-6xl font-bold tabular-nums leading-none text-sn-gold sm:text-7xl">
               #{orderNumber}
             </p>
+            {pickupTimeLabel ? (
+              <p className="mt-4 text-sm text-white/60">
+                Pickup: {pickupTimeLabel}
+              </p>
+            ) : null}
           </div>
         ) : pending ? (
           <p className="mt-10 text-lg text-white/60">Confirming your order…</p>
@@ -232,6 +218,28 @@ function SuccessContent() {
             through—show this screen or your name at the window.
           </p>
         ) : null}
+
+        {receiptLines.length > 0 ? (
+          <div className="mx-auto mt-10 max-w-md rounded-2xl border border-white/10 bg-black/30 px-5 py-6 text-left shadow-inner">
+            <p className="text-xs font-semibold uppercase tracking-wider text-sn-silver">
+              Your order
+            </p>
+            <OrderReceiptLines lines={receiptLines} className="mt-4" plain />
+            {receiptTotal != null ? (
+              <div className="mt-4 flex justify-between border-t border-white/10 pt-4 text-sm">
+                <span className="text-white/60">Total</span>
+                <span className="font-semibold text-sn-gold">
+                  ${receiptTotal.toFixed(2)}
+                </span>
+              </div>
+            ) : null}
+          </div>
+        ) : orderNumber != null && !pending ? (
+          <p className="mx-auto mt-8 max-w-md text-sm text-white/45">
+            Item details aren&apos;t available for this order on this device.
+          </p>
+        ) : null}
+
         <p className="mt-4 text-lg text-white/70">
           See you at the window! Pull up to the drive-thru or walk up, and have
           your name and order ready.
