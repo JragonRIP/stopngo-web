@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 48" role="img" aria-labelledby="title">
+  <title id="title">Edelweiss Coffee</title>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8d5c4"/>
+      <stop offset="100%" style="stop-color:#c9a068"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="34" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="600" fill="url(#g)">Edelweiss</text>
+  <text x="152" y="34" font-family="system-ui, sans-serif" font-size="15" font-weight="500" fill="#c4b8a8" letter-spacing="0.06em">COFFEE</text>
+</svg>

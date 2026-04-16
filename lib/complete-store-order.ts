@@ -153,7 +153,7 @@ async function sendOptionalEmails(input: {
     const { error } = await resend.emails.send({
       from: fromEmail,
       to: input.customerEmail,
-      subject: `Your order #${input.orderNumber} — Stop 'N Go`,
+      subject: `Your order #${input.orderNumber} — Edelweiss Coffee`,
       html: htmlCustomer,
     });
     if (error) console.error("Resend customer confirmation error", error);
@@ -163,7 +163,7 @@ async function sendOptionalEmails(input: {
     const { error } = await resend.emails.send({
       from: fromEmail,
       to: kitchenEmail,
-      subject: `Stop 'N Go — order #${input.orderNumber} (${input.pickupTime || "pickup"})`,
+      subject: `Edelweiss Coffee — order #${input.orderNumber} (${input.pickupTime || "pickup"})`,
       html: htmlKitchen,
     });
     if (error) console.error("Resend kitchen email error", error);

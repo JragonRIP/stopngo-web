@@ -3,8 +3,8 @@
  * Cart is cleared after confirmation; lines are merged from a pre-checkout session snapshot.
  */
 
-export const ORDER_CONFIRMATION_LS_KEY = "stopngo_order_confirmation";
-export const PENDING_CHECKOUT_SESSION_KEY = "stopngo_pending_checkout";
+export const ORDER_CONFIRMATION_LS_KEY = "edelweiss_order_confirmation";
+export const PENDING_CHECKOUT_SESSION_KEY = "edelweiss_pending_checkout";
 
 export type StoredOrderLine = {
   name: string;

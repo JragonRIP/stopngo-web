@@ -1,6 +1,6 @@
 /**
- * Text menu transcribed from Stop 'N Go 2.0 printed sheets.
- * Prices in USD. Confirm at the window if anything changes.
+ * Edelweiss Coffee — browse menu (representative items and sample pricing).
+ * Every drink is made to order; confirm current prices and specials at the window.
  */
 
 export type SizedRow = {
@@ -32,15 +32,12 @@ export type TextMenuSection = {
   id: string;
   title: string;
   intro?: string;
-  /** Shown after sized rows (e.g. specialty variants under energy) */
   afterSized?: string;
   sized?: SizedRow[];
   singles?: SingleRow[];
   duals?: DualRow[];
   bullets?: string[];
-  /** Syrup / flavor names; sugarFree shows an SF tag on the item */
   flavors?: { name: string; sugarFree?: boolean }[];
-  /** Small sub-list under a section (e.g. specialty bulls) */
   subitems?: { name: string; detail?: string }[];
 };
 
@@ -49,335 +46,271 @@ export const textMenuSections: TextMenuSection[] = [
     id: "cup-sizes",
     title: "Cup sizes",
     intro:
-      "Hot drinks: 16 oz, 20 oz, 24 oz. Cold drinks: 16 oz, 24 oz, 32 oz.",
+      "Hot drinks are typically 12 oz, 16 oz, and 20 oz. Iced and blended drinks: 16 oz, 24 oz, and 32 oz. Ask what’s pouring today.",
   },
   {
-    id: "hot-drinks",
-    title: "Hot drinks",
-    intro: "Espresso drinks with steamed milk where noted.",
+    id: "fan-favorites",
+    title: "Fan favorites — ask for these by name",
+    intro:
+      "These customer-loved flavors are perfect in lattes, mochas, and blended treats. Not sure? We’ll help you pick your sweetness and strength.",
+    subitems: [
+      { name: "Hot Buttered Toffee", detail: "Warm, buttery toffee notes" },
+      { name: "Heath", detail: "Toffee and milk chocolate" },
+      { name: "Double Decadence", detail: "Extra-rich chocolate indulgence" },
+      { name: "Snickers", detail: "Chocolate, caramel, and nutty comfort" },
+      { name: "Milky Way", detail: "Chocolate, caramel, and vanilla" },
+      { name: "Almond Joy", detail: "Chocolate, almond, and coconut" },
+    ],
+  },
+  {
+    id: "hot-espresso-drinks",
+    title: "Hot espresso drinks",
+    intro:
+      "Espresso crafted with Crimson Cup beans, steamed milk, and your choice of flavors. Signature Dulce de Leche Latte and other monthly specials rotate—ask at the window.",
     sized: [
       {
-        name: "House Brew",
-        small: 1.99,
-        medium: 2.25,
-        large: 2.5,
+        name: "Espresso",
+        description: "Double shot",
+        small: 2.75,
+        medium: 3.25,
+        large: 3.75,
       },
       {
         name: "Americano",
-        description: "Espresso and water",
-        small: 2.24,
-        medium: 2.5,
-        large: 2.75,
+        description: "Espresso and hot water",
+        small: 2.95,
+        medium: 3.45,
+        large: 3.95,
+      },
+      {
+        name: "Cappuccino",
+        description: "Espresso, steamed milk, dense foam",
+        small: 3.65,
+        medium: 4.15,
+        large: 4.65,
       },
       {
         name: "Café Latte",
-        description: "Steamed milk and espresso",
-        small: 2.45,
-        medium: 2.65,
-        large: 2.85,
+        description: "Espresso and silky steamed milk",
+        small: 3.85,
+        medium: 4.35,
+        large: 4.85,
       },
       {
         name: "Flavored Latte",
-        description: "Steamed milk, espresso, flavor of choice",
+        description: "Latte with syrup or sauce of your choice",
+        small: 4.35,
+        medium: 4.85,
+        large: 5.35,
+      },
+      {
+        name: "Mocha / White Mocha",
+        description: "Espresso, chocolate or white chocolate, steamed milk",
+        small: 4.55,
+        medium: 5.05,
+        large: 5.55,
+      },
+      {
+        name: "Caramel Macchiato",
+        description: "Vanilla milk marked with espresso and caramel",
+        small: 4.65,
+        medium: 5.15,
+        large: 5.65,
+      },
+      {
+        name: "House Brew",
+        description: "Drip coffee, always fresh",
+        small: 2.15,
+        medium: 2.45,
+        large: 2.75,
+      },
+    ],
+  },
+  {
+    id: "iced-frozen-beverages",
+    title: "Iced & frozen beverages",
+    intro:
+      "Iced lattes, cold brew, blended freezes, and more—made to order. Try a Dulce de Leche Latte iced or blended when it’s featured.",
+    sized: [
+      {
+        name: "Iced Latte",
+        description: "Espresso, cold milk, ice",
+        small: 4.15,
+        medium: 4.65,
+        large: 5.15,
+      },
+      {
+        name: "Iced Flavored Latte",
+        small: 4.55,
+        medium: 5.05,
+        large: 5.55,
+      },
+      {
+        name: "Cold Brew",
+        description: "Slow-steeped and smooth",
+        small: 3.75,
+        medium: 4.25,
+        large: 4.75,
+      },
+      {
+        name: "Iced Americano",
+        small: 3.25,
+        medium: 3.75,
+        large: 4.25,
+      },
+      {
+        name: "Frozen Latte / Frappé",
+        description: "Blended with ice; add flavors",
+        small: 5.25,
+        medium: 5.75,
+        large: 6.25,
+      },
+      {
+        name: "Iced Mocha",
+        small: 4.75,
+        medium: 5.25,
+        large: 5.75,
+      },
+    ],
+  },
+  {
+    id: "coffee-alternatives",
+    title: "Coffee alternatives",
+    intro:
+      "Chai, hot chocolate, fruit smoothies, Italian sodas, and French sodas—customize syrups and toppings the same way you would an espresso drink.",
+    sized: [
+      {
+        name: "Chai Latte",
+        description: "Spiced or vanilla",
+        small: 3.95,
+        medium: 4.45,
+        large: 4.95,
+      },
+      {
+        name: "Hot Chocolate",
+        description: "Steamed milk and rich cocoa",
         small: 3.45,
         medium: 3.95,
         large: 4.45,
       },
+      {
+        name: "Steamer",
+        description: "Flavored steamed milk, no coffee",
+        small: 3.25,
+        medium: 3.75,
+        large: 4.25,
+      },
+    ],
+    singles: [
+      {
+        name: "Fruit smoothie",
+        description: "Blended fruit and ice; flavor of the day",
+        price: 5.95,
+        notes: ["Ask which fruits are in the blender today"],
+      },
+      {
+        name: "Italian soda",
+        description: "Sparkling water and syrup over ice; add cream",
+        price: 3.95,
+      },
+      {
+        name: "French soda",
+        description: "Italian soda finished with a float of half & half",
+        price: 4.45,
+      },
+      {
+        name: "Loose-leaf and herbal teas",
+        description: "Hot or iced",
+        price: 2.75,
+        notes: ["Selection varies—ask at the window"],
+      },
     ],
   },
   {
-    id: "specialty-lattes",
-    title: "Specialty lattes",
+    id: "fresh-baked-goods",
+    title: "Fresh baked goods",
     intro:
-      "Iced or blended add $0.25. Several flavors available in Sugar Free (SF) where noted.",
-    sized: [
+      "Pastries and baked treats delivered fresh; availability changes daily.",
+    singles: [
       {
-        name: "Banana Bread Latte",
-        description: "Caramel, banana, and hazelnut",
-        small: 4.25,
-        medium: 5.25,
-        large: 6.25,
-        notes: ["Available in Sugar Free"],
+        name: "Muffins & scones",
+        description: "Sweet and seasonal varieties",
+        price: 3.75,
       },
       {
-        name: "The Sugar Shack",
-        description: "White chocolate and maple syrup",
-        small: 4.25,
-        medium: 5.25,
-        large: 6.25,
+        name: "Coffee cake & loaf slices",
+        price: 3.95,
       },
       {
-        name: "White Chocolate Mocha",
-        description: "White chocolate, steamed milk, and espresso",
-        small: 4.25,
-        medium: 5.25,
-        large: 6.25,
-        notes: ["Available in Sugar Free"],
+        name: "Bagels",
+        description: "With butter, cream cheese, or as a breakfast sandwich",
+        price: 3.5,
       },
       {
-        name: "Caramel Mocha",
-        description: "Dark chocolate, caramel, steamed milk, and espresso",
-        small: 4.25,
-        medium: 5.25,
-        large: 6.25,
-        notes: ["Available in Sugar Free"],
+        name: "Cookies & bars",
+        price: 2.95,
       },
     ],
   },
   {
-    id: "drink-add-ons",
-    title: "Drink add ons and milk",
+    id: "drink-customization",
+    title: "How we build your drink",
+    intro:
+      "We want your cup exactly how you like it—stronger, sweeter, lighter, or decaf.",
     bullets: [
-      "Add additional flavor: $0.50",
-      "Add additional espresso shot: $0.60",
-      "Milk options: Whole, Skim, Almond",
+      "All espresso-based drinks can be ordered decaf.",
+      "Want more or less espresso, or an extra shot? Just ask—we’re happy to adjust.",
+      "Choose your milk: whole, skim, half & half, and non-dairy options when available.",
+      "Add a flavor from our syrup list, or combine a few—this is your drink.",
     ],
   },
   {
-    id: "general-beverages",
-    title: "General beverages",
-    sized: [
-      {
-        name: "Frozen Hot Chocolate",
-        small: 4.85,
-        medium: 5.85,
-        large: 6.85,
-      },
-      {
-        name: "Chai Latte",
-        small: 3.75,
-        medium: 4.25,
-        large: 4.75,
-        notes: ["Spice or Vanilla"],
-      },
-      {
-        name: "Herbal Tea",
-        small: 2.25,
-        medium: 2.5,
-        large: 2.75,
-        notes: [
-          "Earl Grey, Green Tea, Lemon Ginger, Pomegranate Blueberry",
-        ],
-      },
-    ],
-  },
-  {
-    id: "energy-drinks",
-    title: "Energy drinks",
-    sized: [
-      {
-        name: "Lotus",
-        small: 4.5,
-        medium: 5.5,
-        large: 6.5,
-        notes: ["Add Power Up $1.00", "Add Super Cream $0.50"],
-      },
-      {
-        name: "Red Bull",
-        description: "Flavor of choice",
-        small: 4.5,
-        medium: 5.5,
-        large: 6.5,
-      },
-      {
-        name: "Dirty Bull",
-        description: "Flavor of choice and Half n Half",
-        small: 4.75,
-        medium: 5.75,
-        large: 6.75,
-      },
-    ],
-    afterSized:
-      "Specialty Dirty Red Bulls use the same small, medium, and large prices as Dirty Bull ($4.75 / $5.75 / $6.75). All include Half n Half. Sugar Free is available except on Cotton Candy.",
-    subitems: [
-      { name: "Peaches and Cream", detail: "Peach syrup" },
-      { name: "Pina Colada", detail: "Coconut and pineapple syrup" },
-      { name: "Berry Bull", detail: "Blueberry, coconut, and vanilla" },
-      { name: "Creamsicle", detail: "Orange and vanilla" },
-      { name: "Cotton Candy", detail: "Cotton candy syrup" },
-    ],
-  },
-  {
-    id: "flavor-list",
-    title: "Syrup flavor list",
+    id: "syrup-flavors",
+    title: "Syrup & flavor list",
+    intro:
+      "Many flavors are available sugar free (SF)—ask when you order. Not every flavor is in stock every day; we’ll suggest a close substitute if needed.",
     flavors: [
       { name: "Almond", sugarFree: true },
       { name: "Apple" },
       { name: "Banana", sugarFree: true },
-      { name: "Black Berry", sugarFree: true },
+      { name: "Blackberry", sugarFree: true },
       { name: "Blood Orange" },
       { name: "Blueberry", sugarFree: true },
-      { name: "Blue Curacao" },
-      { name: "Blue Raspberry", sugarFree: true },
       { name: "Butter Pecan" },
       { name: "Butter Rum", sugarFree: true },
       { name: "Butterscotch", sugarFree: true },
-      { name: "Cantaloupe" },
       { name: "Caramel", sugarFree: true },
-      { name: "Cheesecake" },
       { name: "Cherry", sugarFree: true },
-      { name: "Cookie Dough", sugarFree: true },
+      { name: "Chocolate", sugarFree: true },
       { name: "Coconut", sugarFree: true },
+      { name: "Cookie Dough", sugarFree: true },
       { name: "Cotton Candy" },
-      { name: "Cranberry" },
-      { name: "Creme de Menthe" },
-      { name: "Cupcake" },
-      { name: "Dragon Fruit" },
       { name: "French Vanilla", sugarFree: true },
-      { name: "Grape" },
       { name: "Green Apple", sugarFree: true },
-      { name: "Guava" },
       { name: "Hazelnut", sugarFree: true },
       { name: "Huckleberry", sugarFree: true },
       { name: "Irish Cream" },
-      { name: "Kiwi" },
       { name: "Lavender", sugarFree: true },
+      { name: "Lemon" },
       { name: "Lime", sugarFree: true },
-      { name: "Lychee" },
       { name: "Mango", sugarFree: true },
+      { name: "Maple" },
       { name: "Orange", sugarFree: true },
-      { name: "Passion Fruit" },
       { name: "Peach", sugarFree: true },
       { name: "Peanut Butter" },
+      { name: "Peppermint", sugarFree: true },
       { name: "Pineapple", sugarFree: true },
       { name: "Pistachio", sugarFree: true },
       { name: "Pomegranate", sugarFree: true },
-      { name: "Prickly Pear" },
+      { name: "Pumpkin" },
       { name: "Raspberry", sugarFree: true },
-      { name: "Root Beer" },
-      { name: "Shortbread" },
-      { name: "Sour Candy" },
+      { name: "Salted Caramel" },
       { name: "Strawberry", sugarFree: true },
-      { name: "Tangerine" },
-      { name: "Tiramisu" },
       { name: "Toasted Marshmallow", sugarFree: true },
+      { name: "Toffee" },
       { name: "Vanilla", sugarFree: true },
       { name: "Watermelon", sugarFree: true },
       { name: "White Chocolate", sugarFree: true },
-      { name: "White Peach" },
-    ],
-  },
-  {
-    id: "breakfast",
-    title: "Breakfast",
-    singles: [
-      {
-        name: "Bagel",
-        price: 3.0,
-        notes: [
-          "Plain, Blueberry, Everything, Cheddar, Jalapeno Cheddar, White Cheddar Bacon",
-        ],
-      },
-      {
-        name: "Bagel toasted with cream cheese",
-        price: 4.25,
-        notes: ["Plain or Berry cream cheese"],
-      },
-      {
-        name: "Homemade jumbo muffin",
-        price: 3.75,
-        notes: ["Ask at the window for flavors of the day"],
-      },
-      {
-        name: "Breakfast sandwich",
-        description: "Egg and cheese on your choice of bagel",
-        price: 6.0,
-      },
-      {
-        name: "Breakfast sandwich with meat",
-        description: "Egg, cheese, bacon or sausage on your choice of bagel",
-        price: 7.0,
-      },
-      {
-        name: "Breakfast burrito",
-        description:
-          "Egg, cheese, crispy tots, house made chipotle cream sauce",
-        price: 5.5,
-      },
-      {
-        name: "Breakfast burrito with meat",
-        description:
-          "Egg, cheese, crispy tots, bacon or sausage, house made chipotle cream sauce",
-        price: 6.5,
-      },
-      {
-        name: "Loaded breakfast tots",
-        description:
-          "Crispy tots, egg, cheese, bacon or sausage, house made chipotle cream sauce",
-        price: 7.5,
-      },
-    ],
-  },
-  {
-    id: "food",
-    title: "Lunch and food",
-    singles: [
-      {
-        name: "Bacon cheese Smash Burger",
-        description: "With fries",
-        price: 12.99,
-      },
-      {
-        name: "Rodeo Smash Burger",
-        description: "Cheese, BBQ, topped with onion ring",
-        price: 12.99,
-      },
-      {
-        name: "Mushroom Swiss Smash Burger",
-        description: "With fries",
-        price: 12.99,
-      },
-      {
-        name: "Crispy chicken sandwich",
-        description:
-          "Crispy chicken, bacon, lettuce, tomato, cheese, mayo. With fries.",
-        price: 12.5,
-      },
-      {
-        name: "Crispy chicken melt",
-        description:
-          "Crispy chicken, grilled sourdough bread, American cheese, and bacon. With fries.",
-        price: 11.99,
-      },
-      {
-        name: "Cheese curds",
-        price: 6.99,
-      },
-      {
-        name: "8 bone in wings",
-        description: "With fries",
-        price: 13.5,
-      },
-    ],
-    duals: [
-      {
-        name: "Crispy chicken Caesar wrap",
-        description:
-          "Crispy chicken, lettuce, Parmesan cheese, croutons, caesar dressing",
-        leftLabel: "Wrap only",
-        leftPrice: 9.5,
-        rightLabel: "With fries",
-        rightPrice: 11.0,
-      },
-      {
-        name: "Crispy chicken bacon ranch wrap",
-        description: "Crispy chicken, lettuce, cheese, ranch, and bacon",
-        leftLabel: "Wrap only",
-        leftPrice: 9.5,
-        rightLabel: "With fries",
-        rightPrice: 11.0,
-      },
-      {
-        name: "Crispy chicken chipotle wrap",
-        description: "Crispy chicken, lettuce, cheese, chipotle, and bacon",
-        leftLabel: "Wrap only",
-        leftPrice: 9.5,
-        rightLabel: "With fries",
-        rightPrice: 11.0,
-      },
-    ],
-    bullets: [
-      "Consuming undercooked meats or eggs may increase your risk of foodborne illness.",
     ],
   },
 ];

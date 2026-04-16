@@ -211,11 +211,17 @@ function SectionBlock({ section, index }: { section: TextMenuSection; index: num
   const hasDuals = section.duals && section.duals.length > 0;
   const accent = sectionAccentClass(section.id);
 
+  const isFanFavorites = section.id === "fan-favorites";
+
   return (
     <FadeInView delayMs={index * 45}>
       <section
         id={`menu-${section.id}`}
-        className={`relative scroll-mt-28 overflow-hidden rounded-2xl border border-white/10 border-l-4 bg-black/30 p-5 shadow-lg shadow-black/25 sm:p-7 ${accent}`}
+        className={`relative scroll-mt-28 overflow-hidden rounded-2xl border border-white/10 border-l-4 bg-black/30 p-5 shadow-lg shadow-black/25 sm:p-7 ${accent} ${
+          isFanFavorites
+            ? "ring-2 ring-sn-red/35 ring-offset-2 ring-offset-sn-base"
+            : ""
+        }`}
       >
         <div
           className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-sn-gold/[0.04] blur-3xl"
@@ -234,7 +240,7 @@ function SectionBlock({ section, index }: { section: TextMenuSection; index: num
                 {section.title}
               </h2>
               <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.2em] text-sn-silver/90">
-                Stop &apos;N Go 2.0
+                Edelweiss Coffee
               </p>
             </div>
           </div>

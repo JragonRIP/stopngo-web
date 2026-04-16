@@ -10,7 +10,7 @@ export default function MenuPreview() {
       className="relative scroll-mt-20 overflow-hidden py-14 sm:scroll-mt-24 sm:py-20"
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(251,176,59,0.12),transparent),radial-gradient(ellipse_60%_40%_at_100%_50%,rgba(237,28,36,0.06),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(201,160,104,0.14),transparent),radial-gradient(ellipse_60%_40%_at_100%_50%,rgba(155,35,53,0.07),transparent)]"
         aria-hidden
       />
 
@@ -25,14 +25,14 @@ export default function MenuPreview() {
               <span className="h-px flex-1 max-w-[3rem] bg-gradient-to-l from-transparent to-sn-gold/50" aria-hidden />
             </div>
             <h1 className="mt-4 text-3xl font-semibold leading-tight text-white sm:text-4xl">
-              Coffee, energy, and real food, all day.
+              Made-to-order drinks &amp; fresh baked goods.
             </h1>
             <p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">
-              Full in-house menu below for browsing. To customize drinks and
-              meals and pay for pickup, use{" "}
-              <span className="text-white/85">Order Online</span>—that menu is
-              powered by Sanity and connects to checkout. Prices and items can
-              change; ask at the window to confirm.
+              Browse our full flavor-forward menu below. For online ordering and
+              checkout, use{" "}
+              <span className="text-white/85">Order Online</span>—that list is
+              powered by our live catalog. Prices and specials can change; ask at
+              the window to confirm.
             </p>
             <div className="mt-5 flex flex-wrap gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/60">

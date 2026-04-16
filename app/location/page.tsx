@@ -18,8 +18,8 @@ export default function LocationPage() {
                 Location and hours
               </h1>
               <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/70">
-                Drive-thru and walk-up on US 2/41 in Powers. Early opens for
-                commuters and travelers.
+                Two drive-thru lanes on South Stephenson in Iron Mountain—stop in
+                for Crimson Cup espresso, smoothies, and fresh baked treats.
               </p>
             </FadeInView>
           </div>

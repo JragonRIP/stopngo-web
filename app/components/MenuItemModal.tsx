@@ -10,6 +10,11 @@ import {
 import { useCartStore, type CartModifier } from "@/lib/cart";
 import { urlForImage } from "@/lib/sanity/image";
 
+function normalizeModifierPrice(raw: unknown): number {
+  if (typeof raw !== "number" || !Number.isFinite(raw) || raw < 0) return 0;
+  return raw;
+}
+
 function cartLineId(
   slug: string,
   modifiers: CartModifier[],
@@ -71,9 +76,9 @@ export default function MenuItemModal({ item, onClose }: Props) {
     if (!item?.modifiers?.length) return [];
     const out: CartModifier[] = [];
     for (const mod of item.modifiers) {
-      const name = mod.name;
-      const price = mod.price;
-      if (!name || typeof price !== "number") continue;
+      const name = typeof mod.name === "string" ? mod.name.trim() : "";
+      if (!name) continue;
+      const price = normalizeModifierPrice(mod.price);
       if (modifierState[name]) out.push({ name, price });
     }
     return out;
@@ -289,9 +294,10 @@ export default function MenuItemModal({ item, onClose }: Props) {
               </legend>
               <div className="mt-2 space-y-2">
                 {item.modifiers.map((mod) => {
-                  const name = mod.name;
-                  const price = mod.price;
-                  if (!name || typeof price !== "number") return null;
+                  const name =
+                    typeof mod.name === "string" ? mod.name.trim() : "";
+                  if (!name) return null;
+                  const price = normalizeModifierPrice(mod.price);
                   return (
                     <label
                       key={name}
@@ -305,7 +311,9 @@ export default function MenuItemModal({ item, onClose }: Props) {
                       />
                       <span className="flex-1 text-sm text-white">{name}</span>
                       <span className="text-sm text-sn-silver">
-                        +${price.toFixed(2)}
+                        {price > 0
+                          ? `+$${price.toFixed(2)}`
+                          : "Included"}
                       </span>
                     </label>
                   );
