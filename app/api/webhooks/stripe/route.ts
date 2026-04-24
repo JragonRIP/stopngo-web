@@ -85,7 +85,7 @@ export async function POST(request: Request) {
       const { error } = await resend.emails.send({
         from: fromEmail,
         to: kitchenEmail,
-        subject: `Stop 'N Go, order paid (${pickupTime})`,
+        subject: `Edelweiss Coffee, order paid (${pickupTime})`,
         html,
       });
       if (error) {

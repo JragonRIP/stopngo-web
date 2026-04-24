@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --sn-base: #3f3f3f;
-  --sn-gold: #fbb03b;
-  --sn-red: #ed1c24;
-  --sn-silver: #bcbec0;
-  --sn-ink: #0a0a0a;
+  /* Warm coffee-house palette (Crimson Cup–inspired accents) */
+  --sn-base: #2d2420;
+  --sn-gold: #c9a068;
+  --sn-red: #9b2335;
+  --sn-silver: #c4b8a8;
+  --sn-ink: #1a120e;
+  --ec-cream: #f5ebe0;
 }
 
 @theme inline {
@@ -16,9 +18,17 @@
   --color-sn-ink: var(--sn-ink);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display-serif);
 }
 
-/* Subtle “lights coming on” in the hero: soft blooms, staggered, low contrast */
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display-serif), ui-serif, Georgia, serif;
+  }
+}
+
+/* Subtle “lights” in the hero */
 @keyframes sn-hero-light-a {
   0%,
   100% {
@@ -105,7 +115,7 @@
 
 body {
   background-color: var(--sn-base);
-  color: #ffffff;
+  color: #f5ebe0;
   font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 

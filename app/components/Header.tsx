@@ -6,6 +6,7 @@ import { useCartStore, getCartItemCount } from "@/lib/cart";
 
 const nav = [
   { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
   { href: "/menu", label: "Menu" },
   { href: "/order", label: "Order Online" },
   { href: "/location", label: "Location" },
@@ -24,11 +25,11 @@ export default function Header() {
           id="top"
         >
           <Image
-            src="/images/stop-n-go-logo.png"
-            alt="Stop 'N Go 2.0"
-            width={120}
-            height={120}
-            className="h-12 w-auto object-contain sm:h-14"
+            src="/images/edelweiss-logo.svg"
+            alt="Edelweiss Coffee"
+            width={280}
+            height={48}
+            className="h-10 w-auto object-contain object-left sm:h-11"
             priority
           />
         </Link>

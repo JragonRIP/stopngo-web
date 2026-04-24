@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import Script from "next/script";
 import CartStickyShell from "./components/CartStickyShell";
 import PortfolioDisclaimerModal from "./components/PortfolioDisclaimerModal";
@@ -15,21 +15,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-display-serif",
+  subsets: ["latin"],
+});
+
 const crispId = process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID;
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#3f3f3f",
+  themeColor: "#2d2420",
 };
 
 export const metadata: Metadata = {
-  title: "Stop 'N Go 2.0, Coffee & Smash Burgers, Powers, MI",
+  title: "Edelweiss Coffee — Drive-Thru in Iron Mountain, MI",
   description:
-    "Locally owned food trailer and coffee in Powers, Michigan. Drive-thru and walk-up from 4:30 AM. Lotus energy, espresso, and fresh Smash Burgers.",
+    "Exceptional, locally roasted Crimson Cup coffee, two drive-thru windows, and made-to-order drinks in Iron Mountain, Michigan.",
   openGraph: {
-    title: "Stop 'N Go 2.0",
-    description: "Fueling the U.P. Starting at 4:30 AM.",
+    title: "Edelweiss Coffee",
+    description:
+      "Exceptional coffee to-go in Iron Mountain. Fresh roasted beans, two drive-thru lanes, Crimson Cup Coffee & Tea.",
   },
 };
 
@@ -41,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-sn-base text-white">
         <CartStickyShell>

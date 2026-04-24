@@ -107,19 +107,6 @@ function IconBeverage() {
   );
 }
 
-function IconEnergy() {
-  return (
-    <svg className={iconClass} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M13 2L4 14h7l-1 8 10-14h-7l0-6z"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 function IconFlavors() {
   return (
     <svg className={iconClass} viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -160,52 +147,33 @@ function IconBreakfast() {
   );
 }
 
-function IconFood() {
-  return (
-    <svg className={iconClass} viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M5 11h14v2a4 4 0 01-4 4H9a4 4 0 01-4-4v-2z"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8 11V7a2 2 0 114 0v4M7 7h10"
-        stroke="currentColor"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
 const ICONS: Record<string, () => ReactNode> = {
   "cup-sizes": IconCupSizes,
-  "hot-drinks": IconHotCoffee,
-  "specialty-lattes": IconSpecialty,
-  "drink-add-ons": IconAddons,
-  "general-beverages": IconBeverage,
-  "energy-drinks": IconEnergy,
-  "flavor-list": IconFlavors,
-  breakfast: IconBreakfast,
-  food: IconFood,
+  "fan-favorites": IconSpecialty,
+  "hot-espresso-drinks": IconHotCoffee,
+  "iced-frozen-beverages": IconBeverage,
+  "coffee-alternatives": IconBeverage,
+  "fresh-baked-goods": IconBreakfast,
+  "drink-customization": IconAddons,
+  "syrup-flavors": IconFlavors,
 };
 
 /** Left border accent per section (Tailwind classes) */
 export function sectionAccentClass(id: string): string {
   switch (id) {
-    case "energy-drinks":
+    case "fan-favorites":
       return "border-l-sn-red/70";
-    case "food":
-      return "border-l-sn-red/50";
-    case "flavor-list":
+    case "fresh-baked-goods":
+      return "border-l-sn-gold/60";
+    case "syrup-flavors":
       return "border-l-sn-gold/50";
-    case "drink-add-ons":
-      return "border-l-sn-silver/40";
+    case "drink-customization":
+      return "border-l-sn-silver/45";
     case "cup-sizes":
-    case "general-beverages":
+    case "coffee-alternatives":
       return "border-l-sn-silver/50";
+    case "iced-frozen-beverages":
+      return "border-l-sn-red/45";
     default:
       return "border-l-sn-gold/55";
   }

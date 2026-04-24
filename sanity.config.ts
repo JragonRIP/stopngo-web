@@ -6,8 +6,8 @@ const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
 
 export default defineConfig({
-  name: "stop-n-go",
-  title: "Stop 'N Go 2.0",
+  name: "edelweiss-coffee",
+  title: "Edelweiss Coffee",
   projectId: projectId || "missing-project-id",
   dataset,
   basePath: "/studio",
