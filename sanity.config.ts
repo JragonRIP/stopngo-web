@@ -11,7 +11,6 @@ export default defineConfig({
   projectId: projectId || "missing-project-id",
   dataset,
   basePath: "/studio",
-  // Vision runs in `sanity dev` (sanity.cli.ts); omitting here avoids SSR bundling issues with Next.js 16.
   plugins: [structureTool()],
   schema: {
     types: schemaTypes,

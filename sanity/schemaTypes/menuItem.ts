@@ -86,15 +86,21 @@ export const menuItem = defineType({
               name: "price",
               title: "Extra price (USD)",
               type: "number",
-              validation: (Rule) => Rule.required().min(0),
+              description:
+                "Optional. Leave empty for a free add-on (treated as $0 in the store).",
+              validation: (Rule) => Rule.min(0),
             }),
           ],
           preview: {
             select: { title: "name", price: "price" },
             prepare({ title, price }) {
+              const p =
+                typeof price === "number" && price > 0
+                  ? `+$${price}`
+                  : "Free / $0";
               return {
                 title: title ?? "Modifier",
-                subtitle: price != null ? `+$${price}` : "",
+                subtitle: p,
               };
             },
           },

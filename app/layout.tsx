@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import CartStickyShell from "./components/CartStickyShell";
+import PortfolioDisclaimerModal from "./components/PortfolioDisclaimerModal";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,6 +47,7 @@ export default function RootLayout({
         <CartStickyShell>
           <div className="flex min-h-full flex-1 flex-col">{children}</div>
         </CartStickyShell>
+        <PortfolioDisclaimerModal />
         {crispId ? (
           <>
             <Script id="crisp-init" strategy="afterInteractive">
